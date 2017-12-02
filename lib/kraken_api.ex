@@ -17,6 +17,16 @@ defmodule KrakenApi do
     invoke_public_api("Time")
   end
 
+  def get_currency_alias("ETH"), do: "XETH"
+  def get_currency_alias("BTC"), do: "XXBT"
+  def get_currency_alias("XBT"), do: "XXBT"
+  def get_currency_alias("LTC"), do: "XLTC"
+  def get_currency_alias("EUR"), do: "ZEUR"
+  def get_currency_alias("USD"), do: "ZUSD"
+  def get_currency_alias("XRP"), do: "XXRP"
+  def get_currency_alias("ZEC"), do: "XZEC"
+  def get_currency_alias(currency), do: currency
+
   @doc """
   Get asset info.
 
