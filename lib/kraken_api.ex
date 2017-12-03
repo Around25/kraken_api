@@ -27,6 +27,15 @@ defmodule KrakenApi do
   def get_currency_alias("ZEC"), do: "XZEC"
   def get_currency_alias(currency), do: currency
 
+  def symbols do
+    [ "BCHEUR", "BCHUSD", "BCHBTC","DASHEUR", "DASHUSD", "DASHBTC", "EOSETH", "EOSBTC", "GNOETH", "GNOBTC", "USDTUSD",
+      "ETCETH", "ETCBTC", "ETCEUR", "ETCUSD", "ETHBTC", "ETHCAD", "ETHEUR",
+      "ETHGBP", "ETHJPY", "ETHUSD", "ICNETH", "ICNBTC", "LTCBTC", "LTCEUR",
+      "LTCUSD", "MLNETH", "MLNBTC", "REPETH", "REPBTC", "REPEUR", "BTCCAD",
+      "BTCEUR", "BTCGBP", "BTCJPY", "BTCUSD", "XDGBTC", "XLMBTC", "XMRBTC",
+      "XMREUR", "XMRUSD", "XRPBTC", "XRPEUR", "XRPUSD", "ZECBTC", "ZECEUR", "ZECUSD"]
+  end
+
   @doc """
   Get asset info.
 
