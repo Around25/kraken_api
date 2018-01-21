@@ -17,13 +17,20 @@ defmodule KrakenApi do
     invoke_public_api("Time")
   end
 
+  def fee("trade", "maker"), do: 0.160
+  def fee("trade", "taker"), do: 0.240
+  def fee("deposit", _coin), do: 0
+  def fee("withdraw", _coin), do: 0
+
   def get_currency_alias("ETH"), do: "XETH"
+  def get_currency_alias("ETC"), do: "XETC"
   def get_currency_alias("BTC"), do: "XXBT"
   def get_currency_alias("XBT"), do: "XXBT"
   def get_currency_alias("LTC"), do: "XLTC"
   def get_currency_alias("EUR"), do: "ZEUR"
   def get_currency_alias("USD"), do: "ZUSD"
   def get_currency_alias("XRP"), do: "XXRP"
+  def get_currency_alias("XMR"), do: "XXMR"
   def get_currency_alias("ZEC"), do: "XZEC"
   def get_currency_alias(currency), do: currency
 
@@ -415,9 +422,12 @@ defmodule KrakenApi do
         body = Poison.decode!(body)
         {:ok, Map.get(body, "result")}
       # Try to get and display the error message from Kraken.
-      {:ok, %HTTPoison.Response{status_code: _, body: body}} ->
-        body = Poison.decode!(body)
-        {:error, Map.get(body, "error")}
+      {:ok, %HTTPoison.Response{status_code: _, body: body} = resp} ->
+        # {"Content-Type", "text/html; charset=UTF-8"}
+        case Poison.decode(body) do
+          {:ok, body} -> {:error, Map.get(body, "error")}
+          _ -> {:error, "Invalid response from kraken api."}
+        end
       # Otherwise just error
       err -> {:error, err}
     end
